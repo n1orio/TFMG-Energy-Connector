@@ -41,25 +41,17 @@ public class ConverterBlockEntity extends BlockEntity {
     }
 
     private void pushEnergyToNeighbors() {
-        // Проходим по всем 6 сторонам (Верх, Низ, Север, Юг...)
         for (Direction direction : Direction.values()) {
-            // Если энергия кончилась - выходим
             if (energyStorage.getEnergyStored() <= 0) return;
 
             BlockPos neighborPos = worldPosition.relative(direction);
-
-            // Ищем у соседа способность принимать энергию (FE)
-            IEnergyStorage neighborEnergy = level.getCapability(Capabilities.Energy.BLOCK, neighborPos, direction.getOpposite());
+            // Получаем энергию соседа через новую систему NeoForge
+            IEnergyStorage neighborEnergy = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.getOpposite());
 
             if (neighborEnergy != null && neighborEnergy.canReceive()) {
-                // Сколько можем отдать? (Макс 1000 за тик или сколько есть)
-                int maxPush = Math.min(energyStorage.getEnergyStored(), 1000);
-
-                // Пробуем залить соседу
-                int accepted = neighborEnergy.receiveEnergy(maxPush, false);
-
-                // Убираем у себя то, что сосед принял
-                energyStorage.extractEnergy(accepted, false);
+                int toSend = energyStorage.extractEnergy(1000, true); // Проверяем, сколько можем вынуть
+                int accepted = neighborEnergy.receiveEnergy(toSend, false); // Отдаем
+                energyStorage.extractEnergy(accepted, false); // Вынимаем по-настоящему
             }
         }
     }

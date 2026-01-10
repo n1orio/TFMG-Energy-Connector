@@ -1,24 +1,29 @@
 package com.tfmg_energy_connector;
 
-public class ModEvents {
-}
-package com.tfmg_energy_connector;
-
+import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
-@EventBusSubscriber(modid = TfmgAe2Bridge.MODID, bus = EventBusSubscriber.Bus.MOD)
+// МЫ УДАЛИЛИ ОТСЮДА @EventBusSubscriber, чтобы не было двойной регистрации
 public class ModEvents {
 
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        // Говорим игре, что наш блок имеет энергию
+        // Регистрация возможности принимать энергию
         event.registerBlockEntity(
-                Capabilities.Energy.BLOCK,
+                Capabilities.EnergyStorage.BLOCK,
                 TfmgAe2Bridge.CONVERTER_BE.get(),
-                (blockEntity, context) -> blockEntity.getEnergyStorage()
+                (be, context) -> be.getEnergyStorage()
         );
+    }
+
+    @SubscribeEvent
+    public static void addCreative(BuildCreativeModeTabContentsEvent event) {
+        // Добавляем блок в инвентарь креатива
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(TfmgAe2Bridge.CONVERTER_ITEM.get());
+        }
     }
 }

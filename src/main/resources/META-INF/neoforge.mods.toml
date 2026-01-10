@@ -1,0 +1,9 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "tfmg_energy_connector"
+version = "1.0.0"
+displayName = "TFMG Energy Connector"
+description = "Connects TFMG and FE"

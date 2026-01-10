@@ -1,6 +1,9 @@
 package com.tfmg_energy_connector;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -8,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ConverterBlock extends Block implements EntityBlock {
@@ -21,10 +25,26 @@ public class ConverterBlock extends Block implements EntityBlock {
         return new ConverterBlockEntity(pos, state);
     }
 
+    // Метод для проверки энергии правой кнопкой мыши
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (!level.isClientSide) {
+            BlockEntity be = level.getBlockEntity(pos);
+            if (be instanceof ConverterBlockEntity converter) {
+                int energy = converter.getEnergyStorage().getEnergyStored();
+                int maxEnergy = converter.getEnergyStorage().getMaxEnergyStored();
+                player.sendSystemMessage(Component.literal("§6[Converter] §fЭнергия: §a" + energy + " §7/ §2" + maxEnergy + " FE"));
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) return null; // На клиенте логика не нужна
+        // Проверяем, что это наш BlockEntity, прежде чем запускать тики
+        if (level.isClientSide) return null;
+
         return (lvl, pos, st, be) -> {
             if (be instanceof ConverterBlockEntity converter) {
                 converter.tick();
