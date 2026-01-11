@@ -51,7 +51,6 @@ class TfmgAe2Bridge(bus: IEventBus) {
             CONVERTER_BE_TYPE.get()
         ) { be, side ->
             // ЛОГ НА АНГЛИЙСКОМ (чтобы не было кракозябр)
-            System.out.println("!!! [MOD LOG] TFMG IS ASKING FOR ENERGY AT SIDE: $side !!!")
             (be as ConverterBlockEntity).energyStorage
         }
     }

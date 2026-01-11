@@ -94,9 +94,6 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
             if (powerToTake > 0) {
                 energyStorage.receiveEnergy(powerToTake, false)
 
-                if (lvl.gameTime % 40 == 0L) {
-                    println("!!! [CONVERTER] ЗАРЯДКА: ${energyStorage.energyStored} FE (V: ${data.voltage}) !!!")
-                }
             }
         }
 

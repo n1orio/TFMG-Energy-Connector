@@ -27,8 +27,6 @@ class ConverterBlock(properties: Properties) : Block(properties), EntityBlock {
         if (!level.isClientSide) {
             val be = level.getBlockEntity(pos) as? ConverterBlockEntity
             // Регистрируем блок в электрической сети TFMG
-            be?.onPlaced()
-            println("!!! [MOD LOG] БЛОК ПОДКЛЮЧЕН К СЕТИ TFMG В $pos !!!")
         }
     }
 
