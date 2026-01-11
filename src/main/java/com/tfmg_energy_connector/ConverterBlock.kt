@@ -62,9 +62,6 @@ class ConverterBlock(properties: Properties) : Block(properties), EntityBlock {
             if (be != null) {
                 // ТЕСТ: Если игрок присел (Shift), заряжаем блок вручную
                 if (player.isCrouching) {
-                    be.energyStorage.receiveEnergy(10000, false)
-                    player.sendSystemMessage(Component.literal("§e[Test] §fРучная зарядка: +10,000 FE"))
-                } else {
                     val energy = be.energyStorage.energyStored
                     val max = be.energyStorage.maxEnergyStored
                     val voltage = be.data.voltage // Напряжение из TFMG
