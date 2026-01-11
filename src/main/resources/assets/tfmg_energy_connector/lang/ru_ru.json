@@ -1,0 +1,5 @@
+{
+  "block.tfmg_energy_connector.energy_converter": "Индустриальный конвертер энергии",
+  "tooltip.tfmg_energy_connector.energy_converter.desc": "§7Преобразует напряжение из §6TFMG §7в §aFE §7энергию.",
+  "tooltip.tfmg_energy_connector.energy_converter.shift": "§7Внутренний буфер: 100 FE."
+}
