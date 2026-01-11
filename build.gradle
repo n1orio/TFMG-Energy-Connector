@@ -3,6 +3,10 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.137'
     id 'idea'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+
+
+
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -13,17 +17,23 @@ version = "1.0.0" // Версия вашего мода
 group = "com.tfmg_energy_connector" // Ваш Group ID
 
 repositories {
-    mavenCentral()
+
+    // Репозиторий для AE2
     maven {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+
+    // Репозиторий для Create и TFMG (CurseMaven)
     maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
     }
+
+    // Стандартный репозиторий для библиотек Java/Kotlin
+    mavenCentral()
 }
 
 base {
@@ -93,6 +103,10 @@ dependencies {
 
     // --- TFMG ---
     implementation "curse.maven:create-industry-693815:7430073"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+// Специальный загрузчик для модов на Kotlin
+    implementation "curse.maven:kotlin-for-forge-351264:6994056"
 }
 
 // Генерация метаданных
