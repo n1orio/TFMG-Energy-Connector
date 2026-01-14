@@ -13,8 +13,8 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "1.0.0" // Версия вашего мода
-group = "com.tfmg_energy_connector" // Ваш Group ID
+version = "26.02"
+group = "com.tfmg_energy_connector"
 
 repositories {
 
@@ -92,21 +92,20 @@ configurations {
 }
 
 dependencies {
-    // --- GuideME ---
     implementation "curse.maven:guideme-1173950:7127444"
 
-    // --- Applied Energistics 2 ---
     implementation "curse.maven:applied-energistics-2-223794:7027323"
 
-    // --- Create ---
     implementation "curse.maven:create-328085:7408951"
 
-    // --- TFMG ---
     implementation "curse.maven:create-industry-693815:7430073"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-// Специальный загрузчик для модов на Kotlin
+
     implementation "curse.maven:kotlin-for-forge-351264:6994056"
+
+    implementation "curse.maven:jei-238222:7420587"
+
 }
 
 // Генерация метаданных

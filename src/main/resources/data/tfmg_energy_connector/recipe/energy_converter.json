@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "C": {
+      "item": "tfmg:copper_spool"
+    },
+    "Q": {
+      "item": "ae2:certus_quartz_crystal"
+    },
+    "R": {
+      "item": "tfmg:aluminum_cable_hub"
+    },
+    "A": {
+      "item": "ae2:energy_acceptor"
+    }
+  },
+  "pattern": [
+    "SCS",
+    "RAR",
+    "SQS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "tfmg_energy_connector:energy_converter"
+  }
+}

@@ -16,30 +16,23 @@ import net.neoforged.neoforge.energy.EnergyStorage
 class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
     BlockEntity(TfmgAe2Bridge.CONVERTER_BE_TYPE.get(), pos, state), IElectric {
 
-    // 1. Хранилище FE для NeoForge/AE2
+
     val energyStorage = object : EnergyStorage(100, 100, 100) {
         override fun canReceive() = true
         override fun canExtract() = true
     }
 
-    // 2. Данные TFMG.
-    // ИСПРАВЛЕНО: Передаем Long (позицию), как того требует конструктор в твоей версии
+
     private val electricValues = ElectricBlockValues(pos.asLong())
 
-    // --- РАЗРЕШЕНИЕ КОНФЛИКТОВ (Minecraft vs TFMG) ---
-
-    // Исправляем ошибку "inherits multiple implementations"
-    // Мы явно указываем, что используем позицию из BlockEntity
     override fun getBlockPos(): BlockPos {
         return worldPosition
     }
 
-    // Исправляем ошибку getPos (теперь возвращает Long)
     override fun getPos(): Long {
         return worldPosition.asLong()
     }
 
-    // --- РЕАЛИЗАЦИЯ ИНТЕРФЕЙСА IELECTRIC ---
 
     override fun getData(): ElectricBlockValues = electricValues
 
@@ -76,19 +69,15 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
         data.networkResistance = r.toInt()
     }
 
-    // --- ЛОГИКА ТИКОВ ---
-
     fun tick() {
         val lvl = level ?: return
         if (lvl.isClientSide || isRemoved) return
 
-        // 1. Обработка электричества TFMG
         tickElectricity()
         if (lvl.gameTime % 20 == 0L) {
             lazyTickElectricity()
         }
 
-        // 2. Потребление из TFMG (если есть напряжение)
         if (data.voltage > 0 && !data.notEnoughPower) {
             val powerToTake = getPowerUsage()
             if (powerToTake > 0) {
@@ -97,7 +86,6 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
             }
         }
 
-        // 3. Раздача в AE2
         if (energyStorage.energyStored > 0) {
             for (dir in Direction.entries) {
                 val cap = lvl.getCapability(Capabilities.EnergyStorage.BLOCK, worldPosition.relative(dir), dir.opposite)
@@ -112,7 +100,6 @@ class ConverterBlockEntity(pos: BlockPos, state: BlockState) :
         }
     }
 
-    // --- СОХРАНЕНИЕ ---
 
     override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
         super.saveAdditional(tag, registries)

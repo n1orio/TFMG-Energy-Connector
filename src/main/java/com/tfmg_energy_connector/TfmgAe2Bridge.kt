@@ -45,12 +45,10 @@ class TfmgAe2Bridge(bus: IEventBus) {
     }
 
     private fun registerCaps(event: RegisterCapabilitiesEvent) {
-        // Мы регистрируем Capability максимально "глупым" способом, чтобы оно работало всегда
         event.registerBlockEntity(
             Capabilities.EnergyStorage.BLOCK,
             CONVERTER_BE_TYPE.get()
         ) { be, side ->
-            // ЛОГ НА АНГЛИЙСКОМ (чтобы не было кракозябр)
             (be as ConverterBlockEntity).energyStorage
         }
     }
