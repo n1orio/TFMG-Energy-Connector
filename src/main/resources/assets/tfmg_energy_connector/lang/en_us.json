@@ -1,20 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "itemGroup.examplemod": "Example Mod Tab",
-  "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item",
-
-  "examplemod.configuration.title": "Example Mod Configs",
-  "examplemod.configuration.section.examplemod.common.toml": "Example Mod Configs",
-  "examplemod.configuration.section.examplemod.common.toml.title": "Example Mod Configs",
-  "examplemod.configuration.items": "Item List",
-  "examplemod.configuration.logDirtBlock": "Log Dirt Block",
-  "examplemod.configuration.magicNumberIntroduction": "Magic Number Text",
-  "examplemod.configuration.magicNumber": "Magic Number"
-}
-=======
   "block.tfmg_energy_connector.energy_converter": "Industrial Energy Converter",
   "tooltip.tfmg_energy_connector.energy_converter.desc": "§7Converts voltage from §6TFMG §7into §aFE §7energy.",
   "tooltip.tfmg_energy_connector.energy_converter.shift": "§7Internal buffer: 100 FE."
 }
->>>>>>> Stashed changes

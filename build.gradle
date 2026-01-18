@@ -13,7 +13,7 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version = "26.02"
+version = "26.03"
 group = "com.tfmg_energy_connector"
 
 repositories {
